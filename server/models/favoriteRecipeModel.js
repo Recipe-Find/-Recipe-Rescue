@@ -19,6 +19,7 @@ const recipeSchema = new Schema({
     id: { type: Number, required: true},
     title: { type: String, required: true},
     image: { type: String, required: true},
+    sourceURL: { type: String, required: true}
 });
 
 // creats a model for the 'recipe' collection that will be part of the export

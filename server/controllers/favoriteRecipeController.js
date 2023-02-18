@@ -26,10 +26,10 @@ const favoriteRecipeController ={};
 favoriteRecipeController.saveRecipe = async (req, res, next) => {
     //  Within the request body, destructure to get id, image & title
     console.log('inside favorite controller');
-    const { id, title, image } = req.body;
+    const { id, title, image, sourceURL } = req.body;
     try{
     // Mongo.create => add the document to the Recipe collection
-    res.locals.savedRecipe =await Recipe.create({ id, title, image }, )
+    res.locals.savedRecipe =await Recipe.create({ id, title, image, sourceURL }, )
     
     //Invoke the next middleware
     return next();
@@ -42,6 +42,24 @@ favoriteRecipeController.saveRecipe = async (req, res, next) => {
         err
        }))
     }
+}
+
+// middleware for getting all recipes
+favoriteRecipeController.getRecipes = async (req, res, next) => {
+    console.log('getting recipes');
+    try{
+        // getting everything in collection
+        res.locals.recipes = await Recipe.find({})
+        return next()
+    }catch (err) {
+        return next(createError({
+         method: 'getRecipes',
+         type: 'Invalid Query for getting recipes',
+         status: 404,
+            err
+           }))
+    }
+    
 }
 
 module.exports = favoriteRecipeController;
