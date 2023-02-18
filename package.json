@@ -1,0 +1,24 @@
+{
+  "name": "recipe-rescue",
+  "version": "1.0.0",
+  "description": "Find recipe based on ingredients on hand",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Recipe-Find/-Recipe-Rescue.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Recipe-Find/-Recipe-Rescue/issues"
+  },
+  "homepage": "https://github.com/Recipe-Find/-Recipe-Rescue#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "prettier": "^2.8.4"
+  }
+}
