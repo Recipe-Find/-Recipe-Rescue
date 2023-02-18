@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = 3000;
-const ingredient = require('./routes/ingredient');
+const recipe = require('./routes/recipe');
 
 //------------------------------- START OF MIDDLEWARE --------------------------
 /** Handle parsing request body
@@ -20,7 +20,7 @@ app.use('/', express.static(path.join(__dirname, '../client/assets')));
  * 3. Fetch API with recipe ID => get the recipeURL
  * 4. Send back to front end JSON with (title, img, array of usedIngredients, array of missedIngredients, and recipeURL)
  */
-app.use('/recipeByIngredient', ingredient);
+app.use('/recipe', recipe);
 
 //----------------------------- START OF ERROR HANDLER--------------------------
 
