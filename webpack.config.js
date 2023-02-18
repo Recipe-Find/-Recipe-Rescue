@@ -12,7 +12,8 @@ module.exports = {
   devServer: {
     // watchFiles: ['client/**/*'],
     proxy: {
-      '/**': 'http://localhost:3000'
+      '/recipe': 'http://localhost:3000',
+      '/favoriteRecipe': 'http://localhost:3000'
     },
     // match the output path
     static: {
