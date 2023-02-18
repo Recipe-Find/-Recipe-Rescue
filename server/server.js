@@ -4,6 +4,10 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const recipe = require('./routes/recipe');
+const favoriteRecipe = require('./routes/favoriteRecipe');
+const userController = require('./controllers/userController');
+const cookieController = require('./controllers/cookieController');
+const sessionController = require('./controllers/sessionController');
 
 //------------------------------- START OF MIDDLEWARE --------------------------
 /** Handle parsing request body
@@ -14,6 +18,32 @@ app.use(express.urlencoded({ extended: true }));
 // handle requests for static files
 app.use('/', express.static(path.join(__dirname, '../client/assets')));
 
+//----------------------------SIGNUP, LOGIN & LOGOUT----------------------------
+/**SIGNUP
+ * 1. POST Request with username & password
+ * 2. Create a user in database
+ * 3. Set Cookie to header
+ * 4. Start the cookie session
+ * 5. Redirect to the /recipe page
+ */
+app.post(
+  '/signup',
+  [userController.createUser, cookieController.setSSIDCookie, sessionController.startSession],
+  (req, res) => {
+    console.log('sending new user to secret page');
+    res.status(200).send('Sign Up Complete');
+    //TODO: Need to specify the link if we are running dev environemnt
+    // res.redirect('/recipe');
+  }
+);
+/**LOGIN
+ * 1. Get Request with username & password
+ * 2. Set Cookie to header
+ * 3. Start the cookie session
+ * 4. Redirect to the /recipe page
+ */
+
+//-----------------------------START OF ROUTING REQUESTS------------------------
 /**Get recipe based on provided ingredents
  * 1. Get the array of ingredients from the body
  * 2. Fetch API => get title, recipe image, usedIngredient(orignal, which has name and amount), missedIngredient(orginal) & recipeID
@@ -21,6 +51,15 @@ app.use('/', express.static(path.join(__dirname, '../client/assets')));
  * 4. Send back to front end JSON with (title, img, array of usedIngredients, array of missedIngredients, and recipeURL)
  */
 app.use('/recipe', recipe);
+
+/**Get id, image & title then save to data base
+ * 1. Take a post request (/favoriteRecipe)
+ * 2. Forward the request to our controller/middleware
+ * 3. Within the request body, destructure to get id, image & title
+ * 4. Mongo.create => add the document to the Recipe collection
+ * 5. Send a message saying "Recipe Added"
+ */
+app.use('/favoriteRecipe', favoriteRecipe);
 
 //----------------------------- START OF ERROR HANDLER--------------------------
 
