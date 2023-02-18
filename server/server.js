@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const recipe = require('./routes/recipe');
+const favoriteRecipe = require('./routes/favoriteRecipe');
 
 //------------------------------- START OF MIDDLEWARE --------------------------
 /** Handle parsing request body
@@ -21,6 +22,15 @@ app.use('/', express.static(path.join(__dirname, '../client/assets')));
  * 4. Send back to front end JSON with (title, img, array of usedIngredients, array of missedIngredients, and recipeURL)
  */
 app.use('/recipe', recipe);
+
+/**Get id, image & title then save to data base
+ * 1. Take a post request (/favoriteRecipe)
+ * 2. Forward the request to our controller/middleware
+ * 3. Within the request body, destructure to get id, image & title
+ * 4. Mongo.create => add the document to the Recipe collection
+ * 5. Send a message saying "Recipe Added" 
+ */
+app.use('/favoriteRecipe',favoriteRecipe);
 
 //----------------------------- START OF ERROR HANDLER--------------------------
 
