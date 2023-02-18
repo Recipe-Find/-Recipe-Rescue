@@ -7,6 +7,8 @@ const Ingredients = () => {
   const [ingredients, setIngredients] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [textMatches, setTextMatches] = useState([]);
+  // we need to pass fetched recipes to child component -> RecipesList -> starting state is null, so nothing will render
+  const [fetchedRecipes, setFetchedRecipes] = useState(null);
 
   // ---------SEARCH BOX (client entering string)-------------
 
@@ -64,43 +66,64 @@ const Ingredients = () => {
   //--------------AFTER SUBMITTING THE SELECTED INGREDIENTS---------
 
   const handleSubmit = (e) => {
+    // reset the recipe list to null
     e.preventDefault();
-    // send request
-    // do something with data - pass to another component that displays matching recipes
-    // reset the ingredients state to empty array
+    getRecipes();
   };
+
+  //------------FETCH CALL TO GRAB RECIPES-------------
+
+  const getRecipes = () => {
+    // send get request, query should be all ingredients joined with ',+'
+    fetch(`/recipe/searchByIngredient?ingredients=${ingredients.join(',+')}`)
+      .then((res) => {
+        if (res.ok) return res.json();
+        else return null;
+      })
+      .then((data) => {
+        // set FetchedRecipes state => this will cause RecipesList componenet to render
+        setFetchedRecipes(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  // TODO: should we reset the ingredients list to empty array after fetching, or have separate reset button?
 
   return (
     <div className='renderedComponent'>
-      <form onSubmit={handleSubmit}>
-        <div className='searchBox'>
-          <h6>search box</h6>
-          <input
-            type='text'
-            onChange={(e) => onTextChange(e.target.value)}
-            value={searchText}
-          ></input>
-        </div>
+      <div className='searchBox'>
+        <h6>search box</h6>
+        <input
+          type='text'
+          onChange={(e) => onTextChange(e.target.value)}
+          value={searchText}
+        ></input>
+      </div>
 
-        <div className='suggestedIngredients'>{renderTextMatches()}</div>
-        <div className='selectedIngredients'>
-          <h6>your ingredients</h6>
-          <ul>
-            {ingredients.map((ingredient, i) => (
-              <li key={i}>
-                {ingredient}
-                <button
-                  onClick={() => {
-                    removeIngredient(ingredient);
-                  }}
-                >
-                  x
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className='suggestedIngredients'>{renderTextMatches()}</div>
+      <div className='selectedIngredients'>
+        <h6>your ingredients</h6>
+        <ul>
+          {ingredients.map((ingredient, i) => (
+            <li key={i}>
+              {ingredient}
+              <button
+                onClick={() => {
+                  removeIngredient(ingredient);
+                }}
+              >
+                x
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <button className='submitButton'>Get Your Recipes</button>
       </form>
+      <RecipesList recipes={fetchedRecipes} />
     </div>
   );
 };

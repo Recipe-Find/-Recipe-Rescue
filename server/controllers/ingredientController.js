@@ -21,10 +21,11 @@ const createError = ({ method, type, status, err }) => {
 ingredientController.getRecipeByIngredient = async (req, res, next) => {
   //   console.log('Inside ingredients controller');
   // Get the array of ingredients from the body
-  const ingredents = req.body.ingredients;
+  // const ingredents = req.body.ingredients;
+  const ingredientsQuery = req.query.ingredients;
 
   //Create a Query
-  const ingredientsQuery = ingredents.join(',+');
+  // const ingredientsQuery = ingredents.join(',+');
   const queryRequirement = {
     ingredients: ingredientsQuery,
     number: numOfRecipes,
