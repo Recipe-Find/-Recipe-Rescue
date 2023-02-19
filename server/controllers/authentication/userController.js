@@ -1,4 +1,4 @@
-const User = require('../models/userModel');
+const User = require('../../models/userModel');
 const userController = {};
 
 //Middleware for creating a new user

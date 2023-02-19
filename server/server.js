@@ -2,12 +2,17 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const recipe = require('./routes/recipe');
 const favoriteRecipe = require('./routes/favoriteRecipe');
-const {createUser, verifyUser} = require('./controllers/userController');
-const {setSSIDCookie} = require('./controllers/cookieController');
-const {startSession} = require('./controllers/sessionController');
+const {
+  createUser,
+  verifyUser,
+  isLoggedIn,
+  startSession,
+  setSSIDCookie
+} = require('./controllers/authentication');
 
 //------------------------------- START OF MIDDLEWARE --------------------------
 /** Handle parsing request body
@@ -18,6 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 // handle requests for static files
 app.use('/', express.static(path.join(__dirname, '../client/assets')));
 
+//transfer all current cookies in browser to the request cookies
+app.use(cookieParser());
+
 //----------------------------SIGNUP, LOGIN & LOGOUT----------------------------
 /**SIGNUP
  * 1. POST Request with username & password
@@ -26,24 +34,20 @@ app.use('/', express.static(path.join(__dirname, '../client/assets')));
  * 4. Start the cookie session
  * 5. Redirect to the /recipe page
  */
-app.post(
-  '/signup',
-  [createUser, setSSIDCookie, startSession],
-  (req, res) => {
-    res.status(200).send('Sign Up Complete');
-    //TODO: Need to specify the link if we are running dev environemnt
-    // res.redirect('/recipe');
-  }
-);
+app.post('/signup', [createUser, startSession, setSSIDCookie], (req, res) => {
+  res.status(200).send('Sign Up Complete');
+  //TODO: Need to specify the link if we are running dev environemnt
+  // res.redirect('/recipe');
+});
 /**LOGIN
  * 1. Post Request with username & password. Note, post request is chose since body content sent with post request is more secure
  * 2. Set Cookie to header
  * 3. Start the cookie session
  * 4. Redirect to the /recipe page
  */
-app.post('/login', [verifyUser, setSSIDCookie, startSession], (req, res)=> {
-  res.status(200).send('Login Complete')
-})
+app.post('/login', [verifyUser, startSession, setSSIDCookie], (req, res) => {
+  res.status(200).send('Login Complete');
+});
 
 //-----------------------------START OF ROUTING REQUESTS------------------------
 /**Get recipe based on provided ingredents
@@ -61,7 +65,7 @@ app.use('/recipe', recipe);
  * 4. Mongo.create => add the document to the Recipe collection
  * 5. Send a message saying "Recipe Added"
  */
-app.use('/favoriteRecipe', favoriteRecipe);
+app.use('/favoriteRecipe', isLoggedIn, favoriteRecipe);
 
 //----------------------------- START OF ERROR HANDLER--------------------------
 
