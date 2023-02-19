@@ -1,11 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 const SavedRecipes = () => {
-
-    return (
-        <div className='renderedComponent'>
-        </div>
-    );
-}
+  return <div className='renderedComponent'></div>;
+};
 
 export default SavedRecipes;

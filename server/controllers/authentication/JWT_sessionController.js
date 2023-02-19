@@ -32,6 +32,7 @@ JWT_sessionController.isLoggedIn = async (req, res, next) => {
 
   //Obtain the SSID cookies from broswer:
   const cookieId = req.cookies.ssid;
+  // console.log("cookie ID:", cookieId)
   //If the cookie does not exist, send a message "User is not logged in"
   //TODO: redirect to signup/front page
   if (!cookieId) return res.status(404).send('User is not logged in');
