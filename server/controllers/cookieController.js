@@ -5,7 +5,6 @@ const cookieController = {};
 cookieController.setSSIDCookie = (req, res, next) => {
   console.log('Setting SSID cookie with value', res.locals.user.id);
   res.cookie('ssid', res.locals.user.id, { httpOnly: true });
-
   return next();
 };
 

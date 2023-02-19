@@ -10,4 +10,4 @@ const userSchema = new Schema({
 // creats a model for the 'user' collection that will be part of the export
 const User = mongoose.model('user', userSchema);
 
-module.exports = { User };
+module.exports =  User;

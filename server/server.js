@@ -5,9 +5,9 @@ const app = express();
 const PORT = 3000;
 const recipe = require('./routes/recipe');
 const favoriteRecipe = require('./routes/favoriteRecipe');
-const userController = require('./controllers/userController');
-const cookieController = require('./controllers/cookieController');
-const sessionController = require('./controllers/sessionController');
+const {createUser, verifyUser} = require('./controllers/userController');
+const {setSSIDCookie} = require('./controllers/cookieController');
+const {startSession} = require('./controllers/sessionController');
 
 //------------------------------- START OF MIDDLEWARE --------------------------
 /** Handle parsing request body
@@ -28,20 +28,22 @@ app.use('/', express.static(path.join(__dirname, '../client/assets')));
  */
 app.post(
   '/signup',
-  [userController.createUser, cookieController.setSSIDCookie, sessionController.startSession],
+  [createUser, setSSIDCookie, startSession],
   (req, res) => {
-    console.log('sending new user to secret page');
     res.status(200).send('Sign Up Complete');
     //TODO: Need to specify the link if we are running dev environemnt
     // res.redirect('/recipe');
   }
 );
 /**LOGIN
- * 1. Get Request with username & password
+ * 1. Post Request with username & password. Note, post request is chose since body content sent with post request is more secure
  * 2. Set Cookie to header
  * 3. Start the cookie session
  * 4. Redirect to the /recipe page
  */
+app.post('/login', [verifyUser, setSSIDCookie, startSession], (req, res)=> {
+  res.status(200).send('Login Complete')
+})
 
 //-----------------------------START OF ROUTING REQUESTS------------------------
 /**Get recipe based on provided ingredents
