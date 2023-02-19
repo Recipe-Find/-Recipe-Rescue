@@ -29,7 +29,7 @@ favoriteRecipeController.saveRecipe = async (req, res, next) => {
     const { id, title, image, sourceURL } = req.body;
     try{
     // Mongo.create => add the document to the Recipe collection
-    res.locals.savedRecipe =await Recipe.create({ id, title, image, sourceURL }, )
+    res.locals.savedRecipe = await Recipe.create({ id, title, image, sourceURL }, )
     
     //Invoke the next middleware
     return next();
