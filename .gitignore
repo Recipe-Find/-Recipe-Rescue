@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Request Rest file in server folder
+/server/request.rest

@@ -1,0 +1,46 @@
+
+/* apply to entire app */
+* {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* App.js */
+.recipeRescue {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* in our MainContainer.js */
+.buttons {
+    display: flex;
+}
+
+.recipesButton {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.ingredientsButton {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Components -> Ingredients.js & SavedRecipes.js */
+.renderedComponent {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Ingredients.js */
+.searchBox {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.suggestedIngredients {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.selectedIngredients {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.submitButton {
+    font-family: 'Courier New', Courier, monospace;
+}
+
