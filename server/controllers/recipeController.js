@@ -1,5 +1,5 @@
 //Import API Keys:
-const { apiKey, spoonacular} = require('../SpoonacularAPI');
+const { apiKey, spoonacular } = require('../SpoonacularAPI');
 
 //Declare controller:
 const recipeController = {};
@@ -19,7 +19,7 @@ const createError = ({ method, type, status, err }) => {
 
 //Fetch API with recipe ID => get the recipeURL
 recipeController.getRecipeURLByID = async (req, res, next) => {
-//   console.log('Inside getRecipeURLByID');
+  //   console.log('Inside getRecipeURLByID');
 
   try {
     // Create a Recipe ID Query

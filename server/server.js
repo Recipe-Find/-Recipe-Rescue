@@ -65,7 +65,9 @@ app.use('/recipe', recipe);
  * 4. Mongo.create => add the document to the Recipe collection
  * 5. Send a message saying "Recipe Added"
  */
-app.use('/favoriteRecipe', isLoggedIn, favoriteRecipe);
+app.use('/favoriteRecipe', [isLoggedIn, favoriteRecipe], (req, res) => {
+  res.status(200).send('recipe favorited')
+});
 
 //----------------------------- START OF ERROR HANDLER--------------------------
 

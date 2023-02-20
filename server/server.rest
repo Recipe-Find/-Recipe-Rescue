@@ -3,6 +3,36 @@ Content-Type: application/json
 
 {
     "id": 1,
-    "title": "Apple Pie",
-    "image": "ADSFGSFG"
+    "title":"Apple Pie",
+    "image": "ADSFGSFG",
+    "sourceURL": "apple-pie-recipe.bing"
 }
+
+### SIGN UP
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+    "username": "Nok-Nok",
+    "password": "123456"
+}
+
+### LOGIN
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "Nok-Nok",
+    "password": "123456"
+}
+
+###Search recipe by ingredients
+GET http://localhost:3000/recipe/searchByIngredient
+Content-Type: application/json
+
+{
+    "ingredients": ["apple","butter","ice cream"]
+}
+
+###Access the favorite recipe
+GET http://localhost:3000/favoriteRecipe
