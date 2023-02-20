@@ -8,7 +8,7 @@ const Login = () => {
 
   //----------------------------FORM SUMISSION---------------------------------
   /** When Login button is clicked, submit a post request to login with username & password
-   * If username & password match database, backend will redirect to Ingredients page
+   * If username & password match database, backend will redirect to homepage
    * If either not match, backend will send back an error message => display the error message
    */
   const handleFormSubmit = (e) => {

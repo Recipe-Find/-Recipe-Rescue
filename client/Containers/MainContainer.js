@@ -31,7 +31,9 @@ const MainContainer = () => {
         <button className='login'>
           <Link to='/login'>Log In</Link>
         </button>
-        <button className='signup'>Signup</button>
+        <button className='signup'>
+          <Link to='/signup'>Sign Up</Link>
+        </button>
       </div>
       <div className='buttons'>
         <button className='ingredientsButton' onClick={() => setRenderedPage('ingredients')}>
