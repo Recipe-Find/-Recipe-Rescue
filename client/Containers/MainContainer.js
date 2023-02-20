@@ -41,6 +41,20 @@ const MainContainer = () => {
       setErrorMessage('Please login to view your favorite recipes');
     }
   };
+  /**When click logout, send a delete request to /logout
+   * => redirect to homepage
+   */
+  const handleLogoutClick = () => {
+    fetch('/logout', {
+      method: 'DELETE'
+    })
+      .then((res) => {
+        if (res.redirected) {
+          return (window.location.href = res.url);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   //adding onClick methods on our buttons to {useState} hook to assign state as either ingredients or saved
   //we then call renderPage() -> depending on our state set by buttons
@@ -54,8 +68,8 @@ const MainContainer = () => {
         <button className='signup'>
           <Link to='/signup'>Sign Up</Link>
         </button>
-        <button className='logout'>
-          <Link to='/logout'>Log Out</Link>
+        <button className='logout' onClick={handleLogoutClick}>
+          Log Out
         </button>
       </div>
       <div className='buttons'>

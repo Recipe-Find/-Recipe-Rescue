@@ -14,10 +14,10 @@ JWT_sessionController.startSession = (req, res, next) => {
     username: res.locals.user.username
   };
 
-  //Create an serialized Token, passing in the session object. Set this serialized Token to be expire in 10m
+  //Create an serialized Token, passing in the session object. Set this serialized Token to be expire in 15m
   //This will serialize our session object
   const serializedToken = jwt.sign({ session }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '10m'
+    expiresIn: '15m'
   });
   console.log('serializedToken', serializedToken);
 
