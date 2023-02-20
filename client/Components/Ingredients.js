@@ -16,13 +16,14 @@ const Ingredients = () => {
     // create an empty array to store the matching ingredients
     let matches = [];
     if (str.length > 0) {
-      // filter the ingredientList to only ingredient containing the search str
-      matches = ingredientList.filter((ingredient) =>
-        ingredient.toLowerCase().includes(str.toLowerCase())
+      // filter the ingredientList to only ingredient containing the search str & not in the selected ingredients
+      matches = ingredientList.filter(
+        (ingredient) =>
+          ingredient.toLowerCase().includes(str.toLowerCase()) && !ingredients.includes(ingredient)
       );
     }
-    //showing clients list of matching ingredients during search
-    setTextMatches(matches);
+    //showing clients list of first 10 matching ingredients during search
+    setTextMatches(matches.slice(0, 10));
     //show in search box what is typed
     setSearchText(str);
   };
@@ -49,10 +50,16 @@ const Ingredients = () => {
   // function to add ingredient to selected ingredients list when clicked
   const selectIngredient = (ingredient) => {
     // only add ingredient if not already included
-    if (!ingredients.includes(ingredient)) {
-      setIngredients([...ingredients, ingredient]);
-    }
+    // if (!ingredients.includes(ingredient)) {
+    //   setIngredients([...ingredients, ingredient]);
+    // }
+    //Add ingredients to the list:
+    setIngredients([...ingredients, ingredient]);
   };
+  //After update selected ingredients, update the renderedlist
+  useEffect(() => {
+    onTextChange(searchText);
+  }, [ingredients]);
 
   //function to remove ingredient added from list - pressing x
   const removeIngredient = (ingredient) => {
@@ -68,6 +75,7 @@ const Ingredients = () => {
   const handleSubmit = (e) => {
     // reset the recipe list to null
     e.preventDefault();
+    setFetchedRecipes(null);
     getRecipes();
   };
 

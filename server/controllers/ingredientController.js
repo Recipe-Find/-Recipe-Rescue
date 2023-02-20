@@ -35,7 +35,6 @@ ingredientController.getRecipeByIngredient = async (req, res, next) => {
   const APIQuery = Object.entries(queryRequirement).reduce((prev, [name, requirement]) => {
     return `${prev}&${name}=${requirement}`;
   }, '');
-
   try {
     //Fetch Data to API
     const fetchedData = await fetch(
