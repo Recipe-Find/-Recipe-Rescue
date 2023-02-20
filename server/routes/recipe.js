@@ -8,4 +8,3 @@ router.get('/searchByIngredient', getRecipeByIngredient, getRecipeURLByID, (req,
 });
 
 module.exports = router;
-
