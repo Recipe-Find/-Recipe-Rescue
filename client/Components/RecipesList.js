@@ -4,17 +4,17 @@ import React from 'react';
 const RecipesList = (props) => {
   // function to favorite a recipe
   const saveRecipe = (recipe) => {
-    fetch('favoriteRecipe', {
+    fetch('/favoriteRecipe', {
       method: 'POST',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'application/JSON'
       },
-      body: {
+      body: JSON.stringify({
         id: recipe.id,
         title: recipe.title,
         image: recipe.image,
         sourceURL: recipe.sourceURL
-      }
+      })
     })
       .then((res) => res.json())
       .then((data) => console.log(data))

@@ -30,7 +30,7 @@ const Login = () => {
           return (window.location.href = res.url);
         }
         //Else, get the error message from backend
-        return res.text();
+        return res.json();
       })
       .then((errorMess) => {
         // Set ErrorMessage state => this will cause errorMessage to be rendered

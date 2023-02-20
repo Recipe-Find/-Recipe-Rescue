@@ -39,33 +39,32 @@ favoriteRecipeController.saveRecipe = async (req, res, next) => {
     const savedRecipe = await Recipe.findOneAndUpdate(
       { id },
       { id, title, image, sourceURL },
-      { upsert: true }
+      { upsert: true, new: true }
     );
+    console.log(savedRecipe);
 
     // saving new saved Recipe in db to locals
     res.locals.savedRecipe = savedRecipe;
 
     // getting cookie id
     const cookieId = req.cookies.ssid;
-    
+
     // getting username from cookie
     const { session } = jwt.verify(cookieId, process.env.ACCESS_TOKEN_SECRET);
     const { username } = session;
 
     //Update user's favorite recipe lists:
     //Only add if the savedRecipe does not exist inside the fave recipes list
-    const {faveRecipes} = await User.findOne({ username }, { faveRecipes: 1, _id: 0 });
-      if (faveRecipes.every(recipe => !recipe._id.equals(savedRecipe._id))){
-        faveRecipes.push(savedRecipe._id);
-      }
-    const currUser = await User.findOneAndUpdate({ username }, { faveRecipes});
-    console.log('CURRENT USER:', currUser);
+    const { faveRecipes } = await User.findOne({ username }, { faveRecipes: 1, _id: 0 });
+    if (faveRecipes.every((recipe) => !recipe._id.equals(savedRecipe._id))) {
+      faveRecipes.push(savedRecipe._id);
+    }
+    const currUser = await User.findOneAndUpdate({ username }, { faveRecipes });
 
     //Invoke the next middleware
     return next();
-  } 
-  //Error Handler
-  catch (err) {
+  } catch (err) {
+    //Error Handler
     return next(
       createError({
         method: 'saveRecipe',
@@ -79,23 +78,21 @@ favoriteRecipeController.saveRecipe = async (req, res, next) => {
 
 // middleware for getting all recipes
 favoriteRecipeController.getRecipes = async (req, res, next) => {
-  console.log('getting recipes');
-  try {
+  console.log('inside favorite controller');
 
+  try {
     // getting cookie id
     const cookieId = req.cookies.ssid;
-    
+
     // getting username from cookie
     const { session } = jwt.verify(cookieId, process.env.ACCESS_TOKEN_SECRET);
     const { username } = session;
-    console.log(username)
 
     // get the faveRecipeList
-    const {faveRecipes} = await User.findOne({username}, {faveRecipes: 1})
-    console.log(faveRecipes);
-    
+    const { faveRecipes } = await User.findOne({ username }, { faveRecipes: 1 });
+
     //Loop through that array, and get information for id, image, title, sourceURL
-    const faveRecipeInformation = await Recipe.find({'_id': {'$in': faveRecipes}})
+    const faveRecipeInformation = await Recipe.find({ _id: { $in: faveRecipes } });
     // getting everything in collection
     res.locals.recipes = faveRecipeInformation;
     return next();

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ingredientList from '../assets/ingredientList.js';
 import RecipesList from './RecipesList.js';
 
-const Ingredients = () => {
+const Ingredients = ({ setErrorMessage }) => {
   //array of strings to send to back end
   const [ingredients, setIngredients] = useState([]);
   const [searchText, setSearchText] = useState('');
@@ -27,6 +27,11 @@ const Ingredients = () => {
     //show in search box what is typed
     setSearchText(str);
   };
+
+  //Remove error message about login required when searchbox is used
+  useEffect(() => {
+    setErrorMessage(null);
+  }, [textMatches]);
 
   //---------LIST OF PARTIALLY MATCHED INGREDIENTS-----------
 
