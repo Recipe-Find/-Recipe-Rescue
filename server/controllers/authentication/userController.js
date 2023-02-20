@@ -41,6 +41,7 @@ userController.verifyUser = async (req, res, next) => {
   console.log('In verifyUser');
   //Obtain username & password from request body:
   const { username, password } = req.body;
+  console.log(req.body);
 
   //If not providing username or password => send "Username & Password are required"
   if (!username || !password) {

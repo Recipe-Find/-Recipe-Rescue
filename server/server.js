@@ -35,7 +35,7 @@ app.use(cookieParser());
  * 5. Redirect to the /recipe page
  */
 app.post('/signup', [createUser, startSession, setSSIDCookie], (req, res) => {
-  res.status(200).send('Sign Up Complete');
+  res.status(200).redirect('/');
   //TODO: Need to specify the link if we are running dev environemnt
   // res.redirect('/recipe');
 });
@@ -46,7 +46,7 @@ app.post('/signup', [createUser, startSession, setSSIDCookie], (req, res) => {
  * 4. Redirect to the /recipe page
  */
 app.post('/login', [verifyUser, startSession, setSSIDCookie], (req, res) => {
-  res.status(200).send('Login Complete');
+  res.status(200).redirect('/');
 });
 
 //-----------------------------START OF ROUTING REQUESTS------------------------

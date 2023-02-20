@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SavedRecipes from '../Components/SavedRecipes';
 import Ingredients from '../Components/Ingredients';
+import { Link } from 'react-router-dom';
 
 const MainContainer = () => {
   // create state for rendered page, initially show ingredients component -> for users to enter ingredients
@@ -26,6 +27,12 @@ const MainContainer = () => {
   //render either Ingredients or Saved Recipes Component
   return (
     <div>
+      <div className='login-signup'>
+        <button className='login'>
+          <Link to='/login'>Log In</Link>
+        </button>
+        <button className='signup'>Signup</button>
+      </div>
       <div className='buttons'>
         <button className='ingredientsButton' onClick={() => setRenderedPage('ingredients')}>
           Enter Ingredients
