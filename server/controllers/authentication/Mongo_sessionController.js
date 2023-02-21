@@ -56,7 +56,7 @@ Mongo_sessionController.isLoggedIn = async (req, res, next) => {
 
   //If the cookie does not exist, send a message "User is not logged in"
   //TODO: redirect to signup/front page
-  if (!cookieId) return res.status(404).send('User is not logged in');
+  if (!cookieId) return res.status(404).json('User is not logged in');
 
   try {
     //If cookie exists, look up the cookieId in the Session collection:
@@ -64,7 +64,7 @@ Mongo_sessionController.isLoggedIn = async (req, res, next) => {
 
     //If no session match, send a mssage "No session found"
     //TODO: redirect to signfront page
-    if (!session) return res.status(404).send('No session found');
+    if (!session) return res.status(404).json('No session found');
 
     //If match, invoke next middleware
     console.log('User Logged In');
