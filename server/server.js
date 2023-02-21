@@ -65,16 +65,10 @@ app.delete('/logout', (req, res) => {
  */
 app.use('/recipe', recipe);
 
-/**Get id, image & title then save to data base
- * 1. Take a post request (/favoriteRecipe)
- * 2. Forward the request to our controller/middleware
- * 3. Within the request body, destructure to get id, image & title
- * 4. Mongo.create => add the document to the Recipe collection
- * 5. Send a message saying "Recipe Added"
+/**Forward all request to favoriteRecipe to router of Favorite Recipe
+ * Ensure user is logged in before forwarding the request
  */
-app.use('/favoriteRecipe', [isLoggedIn, favoriteRecipe], (req, res) => {
-  res.status(200).send('recipe favorited');
-});
+app.use('/favoriteRecipe', [isLoggedIn, favoriteRecipe]);
 
 //----------------------------- START OF ERROR HANDLER--------------------------
 

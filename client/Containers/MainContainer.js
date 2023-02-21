@@ -21,7 +21,11 @@ const MainContainer = () => {
       return <Ingredients setErrorMessage={setErrorMessage} />;
     } else if (renderedPage === 'saved') {
       //Pass array of favoriteRecipes to render
-      return <FavoriteRecipe recipes={favoriteRecipes} />;
+      return favoriteRecipes.length ? (
+        <FavoriteRecipe favoriteRecipes={favoriteRecipes} setFavoriteRecipes={setFavoriteRecipes} />
+      ) : (
+        <p>You have not pinned any favorite recipe</p>
+      );
     } else {
       return null;
     }

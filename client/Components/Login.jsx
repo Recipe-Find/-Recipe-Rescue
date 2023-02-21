@@ -25,6 +25,7 @@ const Login = () => {
     })
       //If not being redirect to recipe page, then get the text message
       .then((res) => {
+        console.log(res);
         //If username & password match, redirect according backend url
         if (res.redirected) {
           return (window.location.href = res.url);
