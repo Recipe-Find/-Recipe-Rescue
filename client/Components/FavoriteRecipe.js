@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 
 const FavoriteRecipe = ({ favoriteRecipes, setFavoriteRecipes }) => {
   //---------------------------HANDLE CLICK METHODS-----------------------------
-  const handleDeleteClick = (e) => {
+  const handleDeleteClick = (recipeID) => {
     //Obtain the favorite recipe card
-    const faveRecipeCard = e.target.parentElement;
+    // const faveRecipeCard = e.target.parentElement;
     //Obtain the recipe id which is the 4th child in faveRecipeCard
-    const recipeID = faveRecipeCard.childNodes[3].innerHTML;
+    // const recipeID = faveRecipeCard.childNodes[3].innerHTML;
+
+    // console.log(recipeID);
 
     //Fetch a DELETE request for the selected recipeID
     fetch(`/favoriteRecipe?id=${recipeID}`, {
@@ -29,7 +31,7 @@ const FavoriteRecipe = ({ favoriteRecipes, setFavoriteRecipes }) => {
           console.log(recipe.title);
           return (
             <li key={recipe.id}>
-              <button className='x' type='button' onClick={handleDeleteClick}>
+              <button className='x' type='button' onClick={() => handleDeleteClick(recipe._id)}>
               ⨉
               </button>
               <a href={recipe.sourceURL}>{recipe.title}</a><br/>
@@ -44,5 +46,5 @@ const FavoriteRecipe = ({ favoriteRecipes, setFavoriteRecipes }) => {
     </div>
   );
 };
-
+``
 export default FavoriteRecipe;
