@@ -45,7 +45,7 @@ const Ingredients = ({ setErrorMessage }) => {
       <ul>
         {textMatches.map((ingredient, i) => (
           <li key={i}>
-            <button onClick={() => selectIngredient(ingredient)}>{ingredient}</button>
+            <button className='button' onClick={() => selectIngredient(ingredient)}>{ingredient}</button>
           </li>
         ))}
       </ul>
@@ -112,42 +112,39 @@ const Ingredients = ({ setErrorMessage }) => {
   // TODO: should we reset the ingredients list to empty array after fetching, or have separate reset button?
 
   return (
-    <div className='renderedComponent'>
-      <div className='searchBox'>
-        <h6>search box</h6>
-        <input
+    <div>
+      <div className='searchContainer'>
+        <h5 className='searchBox'>WHAT'S IN YOUR PANTRY?</h5>
+        <input className='ingredientInput'
           type='text'
           onChange={(e) => onTextChange(e.target.value)}
           value={searchText}
         ></input>
+        <form onSubmit={handleSubmit}>
+          <button className='submitButton'>GET RECIPES!</button>
+        </form>
       </div>
 
-      <div className='suggestedIngredients'>{renderTextMatches()}</div>
-      <div className='selectedIngredients'>
-        <h6>your ingredients</h6>
-        <ul>
+      <div className='ingredientsBox'>
+      <div className='suggestedIngredients'>
+      <h4 className='yourIngredients'>SUGGESTED:</h4>
+        {renderTextMatches()}
+        </div>
+        <ul className='selectedIngredients'>
+        <h4 className='yourIngredients'>YOUR INGREDIENTS:</h4>
           {ingredients.map((ingredient, i) => (
             <li key={i}>
               {ingredient}
-              <button
-                onClick={() => {
-                  removeIngredient(ingredient);
-                }}
-              >
-                x
-              </button>
+              <button className='x' onClick={() => { removeIngredient(ingredient)}}>⨉</button>
             </li>
           ))}
         </ul>
+        </div>
+        <div className='ingredientsBox'>
+        <div className='foundRecipes'>
+          <RecipesList recipes={fetchedRecipes} />
       </div>
-      <form onSubmit={handleSubmit}>
-        <button className='submitButton'>Get Your Recipes</button>
-      </form>
-      {waitForFetchRecipe ? (
-        <p>Fetching Your Recipe Rescue...</p>
-      ) : (
-        <RecipesList recipes={fetchedRecipes} />
-      )}
+      </div>
     </div>
   );
 };

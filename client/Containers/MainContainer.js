@@ -66,11 +66,11 @@ const MainContainer = () => {
   return (
     <div>
       <div className='login-signup'>
-        <button className='login'>
-          <Link to='/login'>Log In</Link>
-        </button>
         <button className='signup'>
           <Link to='/signup'>Sign Up</Link>
+        </button>
+        <button className='login'>
+          <Link to='/login'>Log In</Link>
         </button>
         <button className='logout' onClick={handleLogoutClick}>
           Log Out
@@ -78,14 +78,16 @@ const MainContainer = () => {
       </div>
       <div className='buttons'>
         <button className='ingredientsButton' onClick={() => setRenderedPage('ingredients')}>
-          Enter Ingredients
+          DISCOVER RECIPES
         </button>
         <button className='recipesButton' onClick={handleRecipeClick}>
-          Favorite Recipes
+          YOUR FAVORITES
         </button>
       </div>
-      {errorMessage ? <p>{errorMessage}</p> : null}
-      {renderPage()}
+      <div className='mainContainer'>
+        {errorMessage ? <p>{errorMessage}</p> : null}
+        {renderPage()}
+      </div>
     </div>
   );
 };
