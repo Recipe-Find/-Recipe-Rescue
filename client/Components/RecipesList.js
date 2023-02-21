@@ -24,16 +24,17 @@ const RecipesList = (props) => {
   if (!props.recipes) return null;
   else
     return (
-      <div>
-        <ul>
+      <div className='mainContainer'>
+        <ul className='recipesList'>
           {props.recipes.map((recipe) => (
             <li key={recipe.id}>
-              <button type='button' onClick={() => saveRecipe(recipe)}>
-                {'<3'}
+              <button className='heartbutton' type='button' onClick={() => saveRecipe(recipe)}>
+              ♡
               </button>
-              <a href={recipe.sourceURL}>{recipe.title}</a>
-              <img src={recipe.image} alt={recipe.title} />
-              <div>missing ingredients: {recipe.missedIngredients.join(', ')}</div>
+              <a className='recipeLink' href={recipe.sourceURL}>{recipe.title}</a><br/>
+              <img style={{borderRadius: 10, margin: 5}} src={recipe.image} alt={recipe.title} /><br/>
+              <div>MISSING INGREDIENTS: {recipe.missedIngredients.join(', ')}</div><br/>
+              <h4>-------------------------------------------------------</h4>
             </li>
           ))}
         </ul>
