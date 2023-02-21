@@ -9,6 +9,8 @@ const Ingredients = ({ setErrorMessage }) => {
   const [textMatches, setTextMatches] = useState([]);
   // we need to pass fetched recipes to child component -> RecipesList -> starting state is null, so nothing will render
   const [fetchedRecipes, setFetchedRecipes] = useState(null);
+  //When Get Your Recipe is clicked, this will turn to true and render a message to wait for recipe to be fetched
+  const [waitForFetchRecipe, setWaitForFetchRecipe] = useState(false);
 
   // ---------SEARCH BOX (client entering string)-------------
 
@@ -81,21 +83,26 @@ const Ingredients = ({ setErrorMessage }) => {
     // reset the recipe list to null
     e.preventDefault();
     setFetchedRecipes(null);
-    getRecipes();
+    getRecipes(e);
   };
 
   //------------FETCH CALL TO GRAB RECIPES-------------
 
-  const getRecipes = () => {
+  const getRecipes = (e) => {
+    //Obtain the submit button & disable it for 5s to avoid duplicate fetch request
+    const submitButton = e.target.querySelector('.submitButton');
+    submitButton.disabled = true;
+    setTimeout(() => (submitButton.disabled = false), '5000');
+    //Set waiting for fetch recipe to true:
+    setWaitForFetchRecipe(true);
     // send get request, query should be all ingredients joined with ',+'
     fetch(`/recipe/searchByIngredient?ingredients=${ingredients.join(',+')}`)
-      .then((res) => {
-        if (res.ok) return res.json();
-        else return null;
-      })
-      .then((data) => {
+      .then((res) => res.json())
+      .then((recipes) => {
+        //Set waiting for fetch recipe to true:
+        setWaitForFetchRecipe(false);
         // set FetchedRecipes state => this will cause RecipesList componenet to render
-        setFetchedRecipes(data);
+        setFetchedRecipes(recipes);
       })
       .catch((err) => {
         console.error(err);
@@ -136,7 +143,11 @@ const Ingredients = ({ setErrorMessage }) => {
       <form onSubmit={handleSubmit}>
         <button className='submitButton'>Get Your Recipes</button>
       </form>
-      <RecipesList recipes={fetchedRecipes} />
+      {waitForFetchRecipe ? (
+        <p>Fetching Your Recipe Rescue...</p>
+      ) : (
+        <RecipesList recipes={fetchedRecipes} />
+      )}
     </div>
   );
 };
