@@ -19,7 +19,7 @@ const createError = ({ method, type, status, err }) => {
 
 //Fetch API => get title, recipe image, usedIngredient(orignal, which has name and amount), missedIngredient(orginal) & recipeID
 ingredientController.getRecipeByIngredient = async (req, res, next) => {
-  //   console.log('Inside ingredients controller');
+  console.log('Inside ingredients controller');
   // Get the array of ingredients from the body
   // const ingredents = req.body.ingredients;
   const ingredientsQuery = req.query.ingredients;
@@ -35,7 +35,6 @@ ingredientController.getRecipeByIngredient = async (req, res, next) => {
   const APIQuery = Object.entries(queryRequirement).reduce((prev, [name, requirement]) => {
     return `${prev}&${name}=${requirement}`;
   }, '');
-
   try {
     //Fetch Data to API
     const fetchedData = await fetch(

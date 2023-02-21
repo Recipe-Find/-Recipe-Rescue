@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1 className='recipeRescue'>RECIPE RESCUE</h1>
+        <h1 className='recipeRescue'>RECIPE RESCUE 🥢</h1>
         <MainContainer />
       </div>
     );

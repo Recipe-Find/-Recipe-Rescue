@@ -14,10 +14,10 @@ JWT_sessionController.startSession = (req, res, next) => {
     username: res.locals.user.username
   };
 
-  //Create an serialized Token, passing in the session object. Set this serialized Token to be expire in 30s
+  //Create an serialized Token, passing in the session object. Set this serialized Token to be expire in 15m
   //This will serialize our session object
-  const serializedToken = jwt.sign({ session }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '30s'
+  const serializedToken = jwt.sign(session, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '15m'
   });
   console.log('serializedToken', serializedToken);
 
@@ -35,7 +35,7 @@ JWT_sessionController.isLoggedIn = async (req, res, next) => {
   // console.log("cookie ID:", cookieId)
   //If the cookie does not exist, send a message "User is not logged in"
   //TODO: redirect to signup/front page
-  if (!cookieId) return res.status(404).send('User is not logged in');
+  if (!cookieId) return res.status(404).json('User is not logged in');
 
   try {
     //Verify if the serializedToken is still in session:
@@ -48,7 +48,7 @@ JWT_sessionController.isLoggedIn = async (req, res, next) => {
     //If no session exists, send a mssage "No session found"
     //TODO: redirect to signfront page
     if (err.name === 'TokenExpiredError') {
-      return res.status(404).send('No session found');
+      return res.status(404).json('No session found');
     }
     return next(
       createError({

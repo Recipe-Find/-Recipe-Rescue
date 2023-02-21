@@ -32,21 +32,28 @@ app.use(cookieParser());
  * 2. Create a user in database
  * 3. Set Cookie to header
  * 4. Start the cookie session
- * 5. Redirect to the /recipe page
+ * 5. Redirect to the homepage
  */
 app.post('/signup', [createUser, startSession, setSSIDCookie], (req, res) => {
-  res.status(200).send('Sign Up Complete');
-  //TODO: Need to specify the link if we are running dev environemnt
-  // res.redirect('/recipe');
+  res.status(200).redirect('/');
 });
 /**LOGIN
  * 1. Post Request with username & password. Note, post request is chose since body content sent with post request is more secure
  * 2. Set Cookie to header
  * 3. Start the cookie session
- * 4. Redirect to the /recipe page
+ * 4. Redirect to the homepage
  */
 app.post('/login', [verifyUser, startSession, setSSIDCookie], (req, res) => {
-  res.status(200).send('Login Complete');
+  res.status(200).redirect('/');
+});
+/**LOGOUT
+ * 1. Delete Request with username & password
+ * 2. Clear the cookie for accessToken
+ * 3. Redirect to homepage
+ */
+app.delete('/logout', (req, res) => {
+  res.clearCookie('ssid');
+  res.status(200).redirect('/');
 });
 
 //-----------------------------START OF ROUTING REQUESTS------------------------
@@ -58,16 +65,10 @@ app.post('/login', [verifyUser, startSession, setSSIDCookie], (req, res) => {
  */
 app.use('/recipe', recipe);
 
-/**Get id, image & title then save to data base
- * 1. Take a post request (/favoriteRecipe)
- * 2. Forward the request to our controller/middleware
- * 3. Within the request body, destructure to get id, image & title
- * 4. Mongo.create => add the document to the Recipe collection
- * 5. Send a message saying "Recipe Added"
+/**Forward all request to favoriteRecipe to router of Favorite Recipe
+ * Ensure user is logged in before forwarding the request
  */
-app.use('/favoriteRecipe', [isLoggedIn, favoriteRecipe], (req, res) => {
-  res.status(200).send('recipe favorited')
-});
+app.use('/favoriteRecipe', [isLoggedIn, favoriteRecipe]);
 
 //----------------------------- START OF ERROR HANDLER--------------------------
 

@@ -9,7 +9,7 @@ userController.createUser = async (req, res, next) => {
 
   //If not providing username or password => send "Username & Password are required"
   if (!username || !password) {
-    return res.status(409).send('Username & Password are required');
+    return res.status(409).json('Username & Password are required');
   }
 
   try {
@@ -23,7 +23,7 @@ userController.createUser = async (req, res, next) => {
     //Error handler
     //If username exist in database => Mongoose will throw an error with e.code=11000
     if (err.name == 'MongoServerError' && err.code === 11000) {
-      return res.status(409).send('This username is already in used');
+      return res.status(409).json('This username is already in used');
     }
     return next(
       createError({
@@ -41,17 +41,18 @@ userController.verifyUser = async (req, res, next) => {
   console.log('In verifyUser');
   //Obtain username & password from request body:
   const { username, password } = req.body;
+  console.log(req.body);
 
   //If not providing username or password => send "Username & Password are required"
   if (!username || !password) {
-    return res.status(409).send('Username & Password are required');
+    return res.status(409).json('Username & Password are required');
   }
 
   try {
     //Verify username & password with documents in User collection
     const user = await User.findOne({ username, password });
     //If not match, send a message "Invalid Username/Password"
-    if (!user) return res.status(404).send('Invalid Username/Password');
+    if (!user) return res.status(404).json('Invalid Username/Password');
     //If match, persist the user information to setCookie and start session
     res.locals.user = user;
     //Next Middleware

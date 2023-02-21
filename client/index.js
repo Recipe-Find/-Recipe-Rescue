@@ -1,7 +1,19 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
+import Login from './Components/Login.jsx';
+import Signup from './Components/Signup.jsx';
+import FavoriteRecipe from './Components/FavoriteRecipe.js';
 
 const root = createRoot(document.getElementById('root'));
-
-root.render(<App />);
+const router = createBrowserRouter([
+  { path: '/', element: <App /> },
+  {
+    path: '/login',
+    element: <Login />
+  },
+  { path: '/signup', element: <Signup /> },
+  { path: '/favoriteRecipe', element: <FavoriteRecipe /> }
+]);
+root.render(<RouterProvider router={router} />);

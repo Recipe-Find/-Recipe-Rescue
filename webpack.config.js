@@ -11,10 +11,24 @@ module.exports = {
   },
   devServer: {
     // watchFiles: ['client/**/*'],
-    proxy: {
-      '/recipe': 'http://localhost:3000',
-      '/favoriteRecipe': 'http://localhost:3000'
-    },
+    // proxy: {
+    //   '/recipe': 'http://localhost:3000',
+    //   '/favoriteRecipe': 'http://localhost:3000',
+    // },
+    proxy: [
+      {
+        context: ['/recipe', '/favoriteRecipe'],
+        target: 'http://localhost:3000'
+      },
+      //For login, logout, and signup, proxy all request, except for GET request
+      {
+        context: ['/login', '/logout', '/signup', '/'],
+        target: 'http://localhost:3000',
+        bypass: (req) => {
+          return req.method === 'GET' ? '/index.html' : undefined;
+        }
+      }
+    ],
     // match the output path
     static: {
       directory: path.resolve(__dirname, 'client/assets'),
@@ -41,7 +55,7 @@ module.exports = {
       {
         test: /\.css$/i,
         include: path.resolve(__dirname, 'client'),
-        use: ['style-loader', 'css-loader', 'postcss-loader']
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
