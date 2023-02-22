@@ -516,7 +516,6 @@ const ingredientList = [
   'long-grain rice',
   'low fat buttermilk',
   'low fat milk',
-  'low fat milk',
   'low fat plain yogurt',
   'low fat ricotta cheese',
   'low fat sour cream',

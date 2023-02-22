@@ -45,6 +45,7 @@ const MainContainer = () => {
       setErrorMessage('Please login to view your favorite recipes');
     }
   };
+
   /**When click logout, send a delete request to /logout
    * => redirect to homepage
    */
@@ -76,6 +77,7 @@ const MainContainer = () => {
           Log Out
         </button>
       </div>
+
       <div className='buttons'>
         <button className='ingredientsButton' onClick={() => setRenderedPage('ingredients')}>
           DISCOVER RECIPES

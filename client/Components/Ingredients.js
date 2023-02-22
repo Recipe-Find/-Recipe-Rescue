@@ -11,6 +11,7 @@ const Ingredients = ({ setErrorMessage }) => {
   const [fetchedRecipes, setFetchedRecipes] = useState(null);
   //When Get Your Recipe is clicked, this will turn to true and render a message to wait for recipe to be fetched
   const [waitForFetchRecipe, setWaitForFetchRecipe] = useState(false);
+  const [dropDownVal, setDropDownVal] = useState('None')
 
   // ---------SEARCH BOX (client entering string)-------------
 
@@ -25,7 +26,7 @@ const Ingredients = ({ setErrorMessage }) => {
       );
     }
     //showing clients list of first 10 matching ingredients during search
-    setTextMatches(matches.slice(0, 10));
+    setTextMatches(matches.slice(0, 20));
     //show in search box what is typed
     setSearchText(str);
   };
@@ -99,6 +100,7 @@ const Ingredients = ({ setErrorMessage }) => {
     fetch(`/recipe/searchByIngredient?ingredients=${ingredients.join(',+')}`)
       .then((res) => res.json())
       .then((recipes) => {
+        console.log('recipes', recipes)
         //Set waiting for fetch recipe to true:
         setWaitForFetchRecipe(false);
         // set FetchedRecipes state => this will cause RecipesList componenet to render
@@ -108,6 +110,17 @@ const Ingredients = ({ setErrorMessage }) => {
         console.error(err);
       });
   };
+
+  const handleDropDown = (val) => {
+    setDropDownVal(val)
+    console.log(val)
+  }
+
+
+
+  /*
+    fetch ('https://api.spoonacular.com/recipes/complexSearch/${diet}')
+  */
 
   // TODO: should we reset the ingredients list to empty array after fetching, or have separate reset button?
 
@@ -122,6 +135,21 @@ const Ingredients = ({ setErrorMessage }) => {
         ></input>
         <form onSubmit={handleSubmit}>
           <button className='submitButton'>GET RECIPES!</button>
+
+          <div className='dropdown'>
+            <select onChange={(event) => handleDropDown(event.target.value)}>
+              <option value="none">None</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="pescetarian">Pescetarian</option>
+              <option value="paleo">Paleo</option>
+              <option value="primal">Primal</option>
+              <option value="vegan">Vegan</option>
+              <option value="ketogenic">Ketogenic</option>
+              <option value="gluten free">Gluten-free</option>
+              <option value="low FODMAP">Low FODMAP</option>
+              <option value="whole30">Whole30</option>
+            </select>
+          </div>
         </form>
       </div>
 
@@ -142,7 +170,7 @@ const Ingredients = ({ setErrorMessage }) => {
         </div>
         <div className='ingredientsBox'>
         <div className='foundRecipes'>
-          <RecipesList recipes={fetchedRecipes} />
+          <RecipesList recipes={fetchedRecipes} dropDownVal={dropDownVal}/>
       </div>
       </div>
     </div>

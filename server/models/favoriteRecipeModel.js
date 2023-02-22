@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const MONGO_URI = 'mongodb+srv://Rescue:8nM1ONqD24BDfnCL@cluster0.9qs2qz7.mongodb.net/test';
 
+mongoose.set('strictQuery', true)
 mongoose
   .connect(MONGO_URI, {
     // options for the connect method to parse the URI
