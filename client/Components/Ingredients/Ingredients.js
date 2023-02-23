@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ingredientList from '../assets/ingredientList.js';
-import RecipesList from './RecipesList.js';
+import ingredientList from '../../assets/ingredientList.js';
+import RecipesList from '../RecipeList/RecipesList.js';
+
+import styles from './Ingredients.module.css';
+
 
 const Ingredients = ({ setErrorMessage }) => {
   //array of strings to send to back end

@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+/* apply to entire app */
+* {
+    font-family: 'Jost';
+}
+
+:root {
+  --primary-orange: #d1712d;
+  --secondary-orange: #DDA15E;
+  --primary-green:#31633b;
+  --secondary-green:#40804d;
+  --white-color: #fffef7;
+}
+
+.background{
+  background-color: var(--white-color);
+  min-height: 100vh;
+  max-height: 100vw;
+}
+
+.title{
+  background-color: var(--primary-orange);
+  color: var(--white-color);
+  text-align: center;
+  font-size: 3.5rem;
+  font-style: italic;
+  padding: 2rem;
+  margin-right: 20vw;
+  margin-left: 20vw;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './FavoriteRecipe.module.css'
 
 const FavoriteRecipe = ({ favoriteRecipes, setFavoriteRecipes }) => {
   //---------------------------HANDLE CLICK METHODS-----------------------------
@@ -24,7 +25,7 @@ const FavoriteRecipe = ({ favoriteRecipes, setFavoriteRecipes }) => {
 
   //--------------------------RENDER PAGE---------------------------------------
   return (
-    <div className='faveContainer'>
+    <div className={styles.wrapper}>
       <h3 className='savedTitle'>SAVED RECIPES</h3><br/>
       <ul className='faverecipesList'>
         {favoriteRecipes.map((recipe) => {

@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
-import { useInput } from './CustomHooks';
-const Login = () => {
-  //--------------------------STATES OF LOGGING IN -----------------------------
+import { useInput } from '../CustomHooks';
+
+import styles from './Signup.module.css'
+
+const Signup = () => {
+  //--------------------------STATES OF SIGNING UP -----------------------------
   const [username, [setUsername, userNameOnChange]] = useInput('');
   const [password, [setPassword, passwordOnChange]] = useInput('');
   const [errorMessage, setErrorMessage] = useState(null);
 
   //----------------------------FORM SUMISSION---------------------------------
-  /** When Login button is clicked, submit a post request to login with username & password
-   * If username & password match database, backend will redirect to homepage
-   * If either not match, backend will send back an error message => display the error message
+  /** When Signup button is clicked, submit a post request to signup with username & password
+   * If username in the database, backend will send back an error message => display the error message
+   * Else backend will create a user in database and redirect to homepage
    */
   const handleFormSubmit = (e) => {
     //Prevent the page reload
     e.preventDefault();
     console.log('submit');
     //Send post request with username & password to login
-    fetch(`/login`, {
+    fetch(`/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -25,7 +28,6 @@ const Login = () => {
     })
       //If not being redirect to recipe page, then get the text message
       .then((res) => {
-        console.log(res);
         //If username & password match, redirect according backend url
         if (res.redirected) {
           return (window.location.href = res.url);
@@ -47,7 +49,7 @@ const Login = () => {
 
   return (
     <div>
-      <h1 className='heading'>LOGIN</h1>
+      <h1 className='heading'>WELCOME, SIGN UP & DISCOVER NEW FLAVORS!</h1>
       <div className='loginSignup'>
       <form onSubmit={handleFormSubmit}>
         <div className='userInput'>
@@ -59,10 +61,10 @@ const Login = () => {
           <input type='password' name='password' onChange={passwordOnChange} value={password} />
         </div>
         {errorMessage ? <p>{errorMessage}</p> : null}
-        <button className='logSignButton' type='submit'>LOG IN</button>
+        <button className='logSignButton' type='submit'>SIGN UP</button>
       </form>
       </div>
     </div>
   );
 };
-export default Login;
+export default Signup;

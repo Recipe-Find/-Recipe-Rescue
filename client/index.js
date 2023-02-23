@@ -2,9 +2,9 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
-import Login from './Components/Login.jsx';
-import Signup from './Components/Signup.jsx';
-import FavoriteRecipe from './Components/FavoriteRecipe.js';
+import Login from './Components/Login/Login.jsx';
+import Signup from './Components/Signup/Signup.jsx';
+import FavoriteRecipe from './Components/FavoriteRecipe/FavoriteRecipe.js';
 
 const root = createRoot(document.getElementById('root'));
 const router = createBrowserRouter([

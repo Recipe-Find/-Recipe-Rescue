@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.button {
+  background: var(--primary-green);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  color: white;
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.button:hover{
+  background: var(--secondary-green);
+  transition: 100ms;
+}
+
+.button:visited {
+    text-decoration: none;
+    color: white;
+}
+
+.buttonHolder{
+  display: flex;
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: space-around;
+}

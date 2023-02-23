@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Ingredients from '../Components/Ingredients';
-import FavoriteRecipe from '../Components/FavoriteRecipe';
+import Ingredients from '../../Components/Ingredients/Ingredients';
+import FavoriteRecipe from '../../Components/FavoriteRecipe/FavoriteRecipe';
 import { Link } from 'react-router-dom';
+
+import styles from './MainContainer.module.css'
 
 const MainContainer = () => {
   //-------------------------STATE OF MAIN CONTAINER------------------------
@@ -65,28 +67,28 @@ const MainContainer = () => {
   //we then call renderPage() -> depending on our state set by buttons
   //render either Ingredients or Saved Recipes Component
   return (
-    <div>
-      <div className='login-signup'>
-        <button className='signup'>
+    <div className={styles.wrapper}>
+      <div>
+        <button className={styles.button}>
           <Link to='/signup'>Sign Up</Link>
         </button>
-        <button className='login'>
+        <button className={styles.button}>
           <Link to='/login'>Log In</Link>
         </button>
-        <button className='logout' onClick={handleLogoutClick}>
+        <button className={styles.button} onClick={handleLogoutClick}>
           Log Out
         </button>
       </div>
 
-      <div className='buttons'>
-        <button className='ingredientsButton' onClick={() => setRenderedPage('ingredients')}>
+      <div className={styles.buttonHolder}>
+        <button className={styles.button} onClick={() => setRenderedPage('ingredients')}>
           DISCOVER RECIPES
         </button>
-        <button className='recipesButton' onClick={handleRecipeClick}>
+        <button className={styles.button} onClick={handleRecipeClick}>
           YOUR FAVORITES
         </button>
       </div>
-      <div className='mainContainer'>
+      <div className={styles.errorContainer}>
         {errorMessage ? <p>{errorMessage}</p> : null}
         {renderPage()}
       </div>
