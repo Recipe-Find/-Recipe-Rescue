@@ -68,7 +68,11 @@ const MainContainer = () => {
   //render either Ingredients or Saved Recipes Component
   return (
     <div className={styles.wrapper}>
-      <div>
+      <img
+        className={styles.logo}
+        src='https://cdn.discordapp.com/attachments/1077719502441164860/1078446456412835900/output-onlinepngtools.png'
+      />
+      <div className={styles.loginButtons}>
         <button className={styles.button}>
           <Link to='/signup'>Sign Up</Link>
         </button>

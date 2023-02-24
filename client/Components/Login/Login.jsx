@@ -49,20 +49,20 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1 className='heading'>LOGIN</h1>
-      <div className='loginSignup'>
+    <div className={styles.wrapper}>
+      <h1 className={styles.heading}>WELCOME BACK!</h1>
+      <div className={styles.input}>
       <form onSubmit={handleFormSubmit}>
-        <div className='userInput'>
+        <div>
           <label htmlFor='username'>username: </label>
-          <input type='text' name='username' onChange={userNameOnChange} value={username} />
+          <input className={styles.inputBox} type='text' name='username' onChange={userNameOnChange} value={username} />
         </div>
-        <div className='userInput'>
+        <div>
           <label htmlFor='password'>password: </label>
-          <input type='password' name='password' onChange={passwordOnChange} value={password} />
+          <input className={styles.inputBox} type='password' name='password' onChange={passwordOnChange} value={password} />
         </div>
         {errorMessage ? <p>{errorMessage}</p> : null}
-        <button className='logSignButton' type='submit'>LOG IN</button>
+        <button className={styles.button} type='submit'>LOG IN</button>
       </form>
       </div>
     </div>

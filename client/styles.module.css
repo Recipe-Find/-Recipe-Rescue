@@ -2,24 +2,45 @@
 /* apply to entire app */
 * {
     font-family: 'Jost';
+    padding: 0;
+    margin: 0;
 }
 
 :root {
-  --primary-orange: #d1712d;
-  --secondary-orange: #DDA15E;
-  --primary-green:#31633b;
-  --secondary-green:#40804d;
-  --white-color: #fffef7;
+  --primary-blue: rgb(41, 41, 65);
+  --seethrough-blue: rgb(41, 41, 65, 0.5);
+
+  --primary-green: rgb(47, 56, 61);
+  --seethrough-green: rgb(47, 56, 61, 0.5);
+
+  --primary-silver: rgb(82, 82, 108);
+  --seethrough-silver: rgb(82, 82, 108, 0.5);
+
+  --primary-red:rgb(65, 40, 51);
+  --seethrough-red:rgb(65, 40, 51, 0.5);
+
+  --yellow-color: rgb(233, 210, 134);
+  --seethrough-yellow: rgb(233, 210, 134, 0.25);
+
+  --secondary-yellow: #d4c79b;
+
+  --white-color: rgb(255, 255, 255);
+  
+
+  --gradient-color: linear-gradient(150deg, #ac9bd449 ,#c2e1ff49);
+  --gradienthover-color: linear-gradient(150deg, #ac9bd464 ,#c2e1ff6b);
+  --dark-font: #2e2050ab;
 }
 
-.background{
-  background-color: var(--white-color);
+.root{
+  background: var(--primary-blue);
+  background: linear-gradient(150deg, var(--primary-blue) 0%, var(--primary-silver) 40%, var(--primary-red) 90%);
+  background-size: cover;
   min-height: 100vh;
-  max-height: 100vw;
+  min-width: 100vw;
 }
 
 .title{
-  background-color: var(--primary-orange);
   color: var(--white-color);
   text-align: center;
   font-size: 3.5rem;
@@ -28,3 +49,11 @@
   margin-right: 20vw;
   margin-left: 20vw;
 }
+
+a:link { text-decoration: none; }
+
+a:visited { text-decoration: none; }
+
+a:hover { text-decoration: none; }
+
+a:active { text-decoration: none; }

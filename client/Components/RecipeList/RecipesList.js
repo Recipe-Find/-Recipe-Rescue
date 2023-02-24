@@ -23,85 +23,72 @@ const RecipesList = (props) => {
       .catch((err) => console.error(err));
   };
 
-  /*
-    if (!dropDownVal) return props.recipes.map(...);
-
-    else {
-      const filteredRecipes = props.recipes.filter(recipe => {
-        if (recipe.diet.join(',').includes(\b(\w*dropDownVal\w*)\b)) return recipe
-      })
-
-      return filteredRecipes.map(...)
-    }
-  */
-
   if (!props.recipes) return null;
-  else if (props.recipes) {
+
+  else if (props.recipes && props.dropDownVal === 'None'){
+      return (
+        <div className={styles.wrapper}>
+          <ul className={styles.recipeList}>
+          {console.log('recipeinformation:', props.recipes.recipeInformation)}
+            {props.recipes.recipes.map((recipe) => (
+              <li key={recipe.id} className={styles.recipe}>
+                <button className={styles.heartButton} type='button' onClick={() => saveRecipe(recipe)}>
+                ♡
+                </button>
+                <a className={styles.recipeLink} href={recipe.sourceURL}>{recipe.title}</a><br/>
+                <img className={styles.image} src={recipe.image} alt={recipe.title} /><br/>
+                <div>MISSING INGREDIENTS: {recipe.missedIngredients.join(', ')}</div><br/>
+                <h4>-------------------------------------------------------</h4>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+  else if (props.recipes && props.dropDownVal){
+    let filteredRecipes = [];
+
+    for (let i = 0; i < props.recipes.recipeInformation.length; i++) {
+      if (props.recipes.recipeInformation[i].diets.includes(props.dropDownVal)) filteredRecipes.push(i)
+    }
+    
+    const results = []
+
+    for (let i = 0; i < props.recipes.recipes.length; i++) {
+      let recipe = props.recipes.recipes[i];
+      if (filteredRecipes.includes(i)) results.push(
+        <li key={recipe.id}>
+            <button className='heartbutton' type='button' onClick={() => saveRecipe(recipe)}>
+              ♡
+            </button>
+            <a className='recipeLink' href={recipe.sourceURL}>{recipe.title}</a><br/>
+            <img style={{borderRadius: 10, margin: 5, maxHeight: 75}} src={recipe.image} alt={recipe.title} /><br/>
+            {/* <div>MISSING INGREDIENTS: {recipe.missedIngredients.join(', ')}</div><br/>                   */}
+            
+        </li>
+      )
+    }
+
+
+    console.log('filtered', filteredRecipes)
+    console.log('results', results)
+
     return (
       <div className='mainContainer'>
         <ul className='recipesList'>
-        {console.log('recipeinformation:', props.recipes.recipeInformation)}
-          {props.recipes.recipes.map((recipe) => (
-            <li key={recipe.id}>
-              <button className='heartbutton' type='button' onClick={() => saveRecipe(recipe)}>
-              ♡
-              </button>
-              <a className='recipeLink' href={recipe.sourceURL}>{recipe.title}</a><br/>
-              <img style={{borderRadius: 10, margin: 5}} src={recipe.image} alt={recipe.title} /><br/>
-              <div>MISSING INGREDIENTS: {recipe.missedIngredients.join(', ')}</div><br/>
-              <h4>-------------------------------------------------------</h4>
-            </li>
-          ))}
+          {results}
+          {console.log(results)}
+          {console.log(filteredRecipes)}
         </ul>
       </div>
-    );
+    )
   }
-  else {
-    const filteredRecipes = props.recipes.recipeInformation.filter((recipe) => {
-      if (recipe.diets.includes(props.dropDownVal)) return recipe;
-    })
-    console.log('filtered', filteredRecipes)
-    console.log('information', props.recipe.recipeInformation)
-    // const toDisplay = [];
-    // for (let i = 0; i < filteredRecipes.length; i++) [
-
-    // ]
-
-    // return (
-    //   <div className='mainContainer'>
-    //     <ul className='recipesList'>
-    //       {
-    //         props.recipes.recipes.map((recipe, i) => (
-    //           <li key={recipe.id}>
-    //             <button className='heartbutton' type='button' onClick={() => saveRecipe(recipe)}>
-    //             ♡
-    //             </button>
-    //             <a className='recipeLink' href={recipe.sourceURL}>{recipe.title}</a><br/>
-    //             <img style={{borderRadius: 10, margin: 5}} src={recipe.image} alt={recipe.title} /><br/>
-    //             {/* <div>MISSING INGREDIENTS: {recipe.missedIngredients.join(', ')}</div><br/> */}
-    //             <h4>-------------------------------------------------------</h4>
-    //           </li>
-    //         ));
-    //       }
-    //     </ul>
-    //   </div>
-    // )}
-  };
+  //   
+};
   
-  
-  
-  // {filteredRecipes.map((recipe) => (
-  //   <li key={recipe.id}>
-  //     <button className='heartbutton' type='button' onClick={() => saveRecipe(recipe)}>
-  //     ♡
-  //     </button>
-  //     <a className='recipeLink' href={recipe.sourceURL}>{recipe.title}</a><br/>
-  //     <img style={{borderRadius: 10, margin: 5}} src={recipe.image} alt={recipe.title} /><br/>
-  //     {/* <div>MISSING INGREDIENTS: {recipe.missedIngredients.join(', ')}</div><br/> */}
-  //     <h4>-------------------------------------------------------</h4>
-  //   </li>
-  // ))}
 
-}
+
+// }
 
 export default RecipesList;

@@ -39,7 +39,7 @@ const FavoriteRecipe = ({ favoriteRecipes, setFavoriteRecipes }) => {
               <img style={{borderRadius: 10, margin: 5}} src={recipe.image} alt={recipe.title} /><br/>
               {/* The _id is put hidden since this is keep for information only. _id can be used when update/delete is needed */}
               <p style={{ visibility: 'hidden' }}>{recipe._id}</p>
-              <h4>-------------------------------------------------------</h4>
+          
             </li>
           );
         })}

@@ -48,8 +48,8 @@ const Ingredients = ({ setErrorMessage }) => {
     return (
       <ul>
         {textMatches.map((ingredient, i) => (
-          <li key={i}>
-            <button className='button' onClick={() => selectIngredient(ingredient)}>{ingredient}</button>
+          <li className={styles.list} key={i}>
+            <button className={styles.suggestedIngredientsButton} onClick={() => selectIngredient(ingredient)}>{ingredient}</button>
           </li>
         ))}
       </ul>
@@ -85,6 +85,8 @@ const Ingredients = ({ setErrorMessage }) => {
 
   const handleSubmit = (e) => {
     // reset the recipe list to null
+
+    console.log('e', e)
     e.preventDefault();
     setFetchedRecipes(null);
     getRecipes(e);
@@ -128,53 +130,64 @@ const Ingredients = ({ setErrorMessage }) => {
   // TODO: should we reset the ingredients list to empty array after fetching, or have separate reset button?
 
   return (
-    <div>
-      <div className='searchContainer'>
+    <div className={styles.wrapper}>
+    
+      <div className={styles.searchHolder}>
         <h5 className='searchBox'>WHAT'S IN YOUR PANTRY?</h5>
-        <input className='ingredientInput'
+        <input
+          className={styles.searchBox}
           type='text'
           onChange={(e) => onTextChange(e.target.value)}
           value={searchText}
         ></input>
         <form onSubmit={handleSubmit}>
-          <button className='submitButton'>GET RECIPES!</button>
-
-          <div className='dropdown'>
-            <select onChange={(event) => handleDropDown(event.target.value)}>
-              <option value="none">None</option>
-              <option value="vegetarian">Vegetarian</option>
-              <option value="pescetarian">Pescetarian</option>
-              <option value="paleo">Paleo</option>
-              <option value="primal">Primal</option>
-              <option value="vegan">Vegan</option>
-              <option value="ketogenic">Ketogenic</option>
-              <option value="gluten free">Gluten-free</option>
-              <option value="low FODMAP">Low FODMAP</option>
-              <option value="whole30">Whole30</option>
+          <div>
+            <select className={styles.dropDown} onChange={(event) => handleDropDown(event.target.value)}>
+              <option value='none'>None</option>
+              <option value='vegetarian'>Vegetarian</option>
+              <option value='pescetarian'>Pescetarian</option>
+              <option value='paleo'>Paleo</option>
+              <option value='primal'>Primal</option>
+              <option value='vegan'>Vegan</option>
+              <option value='ketogenic'>Ketogenic</option>
+              <option value='gluten free'>Gluten-free</option>
+              <option value='low FODMAP'>Low FODMAP</option>
+              <option value='whole30'>Whole30</option>
             </select>
           </div>
+          <button className={`${styles.button} submitButton`}>GET RECIPES!</button>
         </form>
       </div>
 
-      <div className='ingredientsBox'>
-      <div className='suggestedIngredients'>
-      <h4 className='yourIngredients'>SUGGESTED:</h4>
-        {renderTextMatches()}
+      <div className={styles.ingredientsHolder}>
+        <div className={styles.suggestedIngredients}>
+          <h4>SUGGESTED:</h4>
+          {renderTextMatches()}
         </div>
-        <ul className='selectedIngredients'>
-        <h4 className='yourIngredients'>YOUR INGREDIENTS:</h4>
+        <ul className={styles.yourIngredients}>
+          <h4>YOUR INGREDIENTS:</h4>
           {ingredients.map((ingredient, i) => (
-            <li key={i}>
+            <li className={styles.list} key={i}>
               {ingredient}
-              <button className='x' onClick={() => { removeIngredient(ingredient)}}>⨉</button>
+              <button
+                className={styles.x}
+                onClick={() => {
+                  removeIngredient(ingredient);
+                }}
+              >
+                ⨉
+              </button>
             </li>
           ))}
         </ul>
-        </div>
-        <div className='ingredientsBox'>
-        <div className='foundRecipes'>
-          <RecipesList recipes={fetchedRecipes} dropDownVal={dropDownVal}/>
       </div>
+
+      <div className='ingredientsBox'>
+        <div className={styles.recipesHolder}>
+          <h4>RECIPES:</h4>
+
+          <RecipesList recipes={fetchedRecipes} dropDownVal={dropDownVal} />
+        </div>
       </div>
     </div>
   );

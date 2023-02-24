@@ -1,0 +1,40 @@
+.wrapper {
+  
+}
+
+.recipeList {
+  display:flex;
+ 
+  max-width: 20%;
+}
+
+.recipe {
+  max-width: 20vw;
+  
+}
+
+.heartButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  padding: .5rem;
+  color: var(--white-color);
+  font-size: 1.25rem
+}
+
+.image {
+  borderRadius: 10;
+  margin: 5;
+  max-width: 19vw;
+}
+
+.heartButton:hover {
+  color: red;
+}
+
+.recipeLink {
+  color: rgb(255, 247, 199);
+  font-size: 20px;
+  
+}
